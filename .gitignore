@@ -1,0 +1,43 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbattrs.xml
+/.externalToolBuilders/
+
+### VS Code ###
+.vscode/
+
+### Node / Frontend ###
+frontend/node_modules
+frontend/dist
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+### Maven runtime folder inside workspace ###
+.maven/
+
+.env
+

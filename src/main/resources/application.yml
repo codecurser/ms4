@@ -1,0 +1,56 @@
+server:
+  port: ${PORT:8084}
+
+spring:
+  application:
+    name: submission-service
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:${DB_URL:${DATABASE_URL:jdbc:postgresql://${DB_HOST:ep-wild-cherry-b5ctexgm-pooler.c-7.us-east-2.aws.neon.tech}:${DB_PORT:5432}/${DB_NAME:neondb}?sslmode=require&channel_binding=require}}}
+    username: ${DB_USERNAME:neondb_owner}
+    password: ${DB_PASSWORD:npg_pM6EYGjk2mXP}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      keepalive-time: 30000
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      maximum-pool-size: 10
+      minimum-idle: 2
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        temp:
+          use_jdbc_metadata_defaults: false
+        format_sql: false
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    baseline-version: 0
+    table: flyway_schema_history_submissions
+
+jwt:
+  secret: ${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
+
+services:
+  ms2:
+    url: ${MS2_BASE_URL:https://ms2-w51n.onrender.com}
+  ms3:
+    url: ${MS3_BASE_URL:https://ms3-1.onrender.com}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+
