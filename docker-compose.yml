@@ -8,14 +8,13 @@ services:
       - "8084:8084"
     environment:
       PORT: 8084
-      DATABASE_URL: postgresql://neondb_owner:npg_pM6EYGjk2mXP@ep-wild-cherry-b5ctexgm-pooler.c-7.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require
-      DB_HOST: ep-wild-cherry-b5ctexgm-pooler.c-7.us-east-2.aws.neon.tech
+      DATABASE_URL: postgresql://neondb_owner:npg_9CGbfwg0YciA@ep-dry-leaf-bdl8qwao-pooler.c-8.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+      DB_HOST: ep-dry-leaf-bdl8qwao-pooler.c-8.us-east-2.aws.neon.tech
       DB_PORT: 5432
       DB_NAME: neondb
       DB_USERNAME: neondb_owner
-      DB_PASSWORD: npg_pM6EYGjk2mXP
+      DB_PASSWORD: npg_9CGbfwg0YciA
       JWT_SECRET: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
       MS2_BASE_URL: https://ms2-w51n.onrender.com
       MS3_BASE_URL: https://ms3-1.onrender.com
     restart: unless-stopped
-
