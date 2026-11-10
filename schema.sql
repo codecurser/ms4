@@ -53,3 +53,4 @@ CREATE INDEX IF NOT EXISTS idx_exam_attempts_status ON exam_attempts (status);
 CREATE INDEX IF NOT EXISTS idx_exam_attempts_client_ip ON exam_attempts (client_ip);
 CREATE INDEX IF NOT EXISTS idx_candidate_answers_attempt_id ON candidate_answers (attempt_id);
 CREATE INDEX IF NOT EXISTS idx_candidate_answers_question_id ON candidate_answers (question_id);
+

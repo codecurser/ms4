@@ -7,14 +7,15 @@ export default defineConfig({
     port: 5174,
     proxy: {
       '/api': {
-        target: 'http://localhost:8084',
-        changeOrigin: true
+        target: process.env.VITE_API_BASE_URL || 'https://ms4-d7da.onrender.com',
+        changeOrigin: true,
+        secure: false
       },
       '/health': {
-        target: 'http://localhost:8084',
-        changeOrigin: true
+        target: process.env.VITE_API_BASE_URL || 'https://ms4-d7da.onrender.com',
+        changeOrigin: true,
+        secure: false
       }
     }
   }
 });
-
