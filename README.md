@@ -47,7 +47,7 @@ A high-performance, resilient microservice for the **Online Examination Portal**
        |                                       |                               |
        v                                       v                               v
 [ MS1: Auth Service ]              [ MS2: Exam Management ]       [ MS3: Question Service ]
-(JWT Secret: 404E63...)            (https://ms2-w51n...)          (https://ms3-1...)
+(JWT Secret: 404E63...)            (https://ms2-w51n...)          (https://ms3-2...)
        |                                       |                               |
        | Bearer JWT (Creator Audit)            | Share Link / Duration         | Questions & Answer Key
        +-----------------------+               |                               |

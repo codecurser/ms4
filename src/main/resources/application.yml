@@ -45,7 +45,7 @@ services:
   ms2:
     url: ${MS2_BASE_URL:https://ms2-w51n.onrender.com}
   ms3:
-    url: ${MS3_BASE_URL:https://ms3-1.onrender.com}
+    url: ${MS3_BASE_URL:https://ms3-2.onrender.com}
 
 springdoc:
   api-docs:

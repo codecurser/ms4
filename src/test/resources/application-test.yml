@@ -21,5 +21,5 @@ services:
   ms2:
     url: https://ms2-w51n.onrender.com
   ms3:
-    url: https://ms3-1.onrender.com
+    url: https://ms3-2.onrender.com
 

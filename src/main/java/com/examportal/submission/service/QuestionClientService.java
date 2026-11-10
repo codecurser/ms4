@@ -21,7 +21,7 @@ public class QuestionClientService {
 
     private final RestClient restClient;
 
-    @Value("${services.ms3.url:https://ms3-1.onrender.com}")
+    @Value("${services.ms3.url:https://ms3-2.onrender.com}")
     private String ms3BaseUrl;
 
     public List<PublicQuestionDto> getPublicQuestions(UUID examId) {
