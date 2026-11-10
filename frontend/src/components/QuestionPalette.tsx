@@ -24,34 +24,50 @@ export const QuestionPalette: React.FC<QuestionPaletteProps> = ({
 
   const flaggedCount = flaggedQuestionIds.size;
   const unansweredCount = questions.length - answeredCount;
+  const progressPercent = questions.length > 0 ? Math.round((answeredCount / questions.length) * 100) : 0;
 
   return (
-    <div className="glass-panel p-5">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold text-sm text-slate-200">Question Palette</h3>
-        <span className="text-xs text-slate-400 font-mono">
-          {answeredCount}/{questions.length} Done
-        </span>
+    <div className="glass-panel p-5 sticky top-24 shadow-xl border-white/10">
+      {/* Header & Percentage */}
+      <div className="flex items-center justify-between mb-3">
+        <div>
+          <h3 className="font-bold text-sm text-white tracking-tight">Question Palette</h3>
+          <p className="text-[11px] text-slate-400">Navigation &amp; Status</p>
+        </div>
+        <div className="text-right">
+          <span className="text-xs font-mono font-bold text-indigo-400">
+            {answeredCount}/{questions.length}
+          </span>
+          <span className="text-[10px] text-slate-400 ml-1">({progressPercent}%)</span>
+        </div>
+      </div>
+
+      {/* Mini Progress Bar */}
+      <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden mb-4 border border-white/5">
+        <div
+          className="h-full bg-gradient-to-r from-indigo-500 to-emerald-400 transition-all duration-300 rounded-full"
+          style={{ width: `${progressPercent}%` }}
+        />
       </div>
 
       {/* Legend / Status Chips */}
       <div className="grid grid-cols-3 gap-2 mb-4 text-[11px]">
-        <div className="flex items-center gap-1.5 bg-emerald-950/40 border border-emerald-500/20 px-2 py-1.5 rounded-lg text-emerald-300">
-          <CheckCircle size={13} className="text-emerald-400" />
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-1.5 bg-emerald-950/40 border border-emerald-500/25 px-2 py-2 rounded-xl text-emerald-300 font-medium">
+          <CheckCircle size={13} className="text-emerald-400 shrink-0" />
           <span>Ans ({answeredCount})</span>
         </div>
-        <div className="flex items-center gap-1.5 bg-amber-950/40 border border-amber-500/20 px-2 py-1.5 rounded-lg text-amber-300">
-          <Flag size={13} className="text-amber-400" />
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-1.5 bg-amber-950/40 border border-amber-500/25 px-2 py-2 rounded-xl text-amber-300 font-medium">
+          <Flag size={13} className="text-amber-400 shrink-0" />
           <span>Flag ({flaggedCount})</span>
         </div>
-        <div className="flex items-center gap-1.5 bg-slate-800/40 border border-slate-700/50 px-2 py-1.5 rounded-lg text-slate-400">
-          <HelpCircle size={13} />
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-1.5 bg-slate-800/40 border border-slate-700/50 px-2 py-2 rounded-xl text-slate-400 font-medium">
+          <HelpCircle size={13} className="shrink-0" />
           <span>Left ({unansweredCount})</span>
         </div>
       </div>
 
       {/* Question Grid Buttons */}
-      <div className="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-5 gap-2 max-h-[360px] overflow-y-auto pr-1">
+      <div className="grid grid-cols-5 gap-2 max-h-[380px] overflow-y-auto pr-1">
         {questions.map((q, idx) => {
           const isAnswered = Boolean(answers[q.id] && answers[q.id].length > 0);
           const isFlagged = flaggedQuestionIds.has(q.id);
@@ -69,9 +85,12 @@ export const QuestionPalette: React.FC<QuestionPaletteProps> = ({
               key={q.id}
               onClick={() => onSelectQuestion(idx)}
               className={`palette-btn ${btnClass} ${isCurrent ? 'palette-btn-current' : ''}`}
-              title={`Question ${idx + 1} (${q.points} pts)`}
+              title={`Question ${idx + 1} &bull; ${q.points} pt${q.points === 1 ? '' : 's'}`}
             >
               {idx + 1}
+              {isFlagged && (
+                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-amber-400 rounded-full border border-slate-900" />
+              )}
             </button>
           );
         })}
@@ -79,4 +98,3 @@ export const QuestionPalette: React.FC<QuestionPaletteProps> = ({
     </div>
   );
 };
-

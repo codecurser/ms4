@@ -83,59 +83,61 @@ export const CreatorAuditModal: React.FC<CreatorAuditModalProps> = ({ onClose })
 
   return (
     <div className="modal-overlay">
-      <div className="glass-panel max-w-4xl w-full p-6 sm:p-8 max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between pb-4 mb-6 border-b border-white/10">
-          <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">
-              <Users size={22} />
+      <div className="glass-panel max-w-4xl w-full p-6 sm:p-8 max-h-[90vh] overflow-y-auto shadow-2xl border-white/10 relative animate-in fade-in zoom-in-95 duration-200">
+        <div className="flex items-center justify-between pb-5 mb-6 border-b border-white/[0.08]">
+          <div className="flex items-center gap-3.5">
+            <div className="p-3 rounded-2xl bg-indigo-500/15 text-indigo-400 border border-indigo-500/25 shadow-inner">
+              <Users size={24} />
             </div>
             <div>
-              <h3 className="font-bold text-lg text-white">Creator Candidate Tracking &amp; Submissions Audit</h3>
-              <p className="text-xs text-slate-400">
+              <h3 className="font-extrabold text-lg sm:text-xl text-white">
+                Creator Candidate Tracking &amp; Submissions Audit
+              </h3>
+              <p className="text-xs text-slate-400 mt-0.5">
                 Audit real client IP addresses, exam sessions, and automated scores for your exam.
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+            className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
           >
             <X size={20} />
           </button>
         </div>
 
         {/* Input Form */}
-        <form onSubmit={handleFetchAudit} className="glass-card p-4 mb-6 space-y-3">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <form onSubmit={handleFetchAudit} className="glass-card p-5 mb-6 space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">
+              <label className="block text-xs font-bold text-slate-300 mb-1.5 uppercase tracking-wider">
                 Exam UUID <span className="text-indigo-400">*</span>
               </label>
               <div className="relative">
-                <KeyRound size={15} className="absolute left-3 top-3 text-slate-400" />
+                <KeyRound size={16} className="absolute left-3.5 top-3.5 text-indigo-400/80" />
                 <input
                   type="text"
                   value={examId}
                   onChange={(e) => setExamId(e.target.value)}
                   placeholder="e.g. 550e8400-e29b-41d4-a716-446655440000"
-                  className="input-field pl-9 font-mono text-xs"
+                  className="input-field pl-10 font-mono text-xs"
                   required
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">
+              <label className="block text-xs font-bold text-slate-300 mb-1.5 uppercase tracking-wider">
                 MS1 Creator JWT Bearer Token <span className="text-indigo-400">*</span>
               </label>
               <div className="relative">
-                <Lock size={15} className="absolute left-3 top-3 text-slate-400" />
+                <Lock size={16} className="absolute left-3.5 top-3.5 text-indigo-400/80" />
                 <input
                   type="password"
                   value={jwtToken}
                   onChange={(e) => setJwtToken(e.target.value)}
                   placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                  className="input-field pl-9 font-mono text-xs"
+                  className="input-field pl-10 font-mono text-xs"
                   required
                 />
               </div>
@@ -143,12 +145,16 @@ export const CreatorAuditModal: React.FC<CreatorAuditModalProps> = ({ onClose })
           </div>
 
           <div className="flex justify-end pt-1">
-            <button type="submit" disabled={loading} className="btn-primary text-xs py-2 px-4">
+            <button
+              type="submit"
+              disabled={loading}
+              className="btn-primary text-xs py-2.5 px-5 font-semibold"
+            >
               {loading ? (
-                <>
-                  <Loader2 size={14} className="animate-spin" />
+                <span className="flex items-center gap-2">
+                  <Loader2 size={15} className="animate-spin" />
                   <span>Loading Submissions...</span>
-                </>
+                </span>
               ) : (
                 <span>Fetch Candidate Submissions</span>
               )}
@@ -157,7 +163,7 @@ export const CreatorAuditModal: React.FC<CreatorAuditModalProps> = ({ onClose })
         </form>
 
         {error && (
-          <div className="mb-6 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-300 text-xs">
+          <div className="mb-6 p-4 rounded-xl bg-rose-500/10 border border-rose-500/25 text-rose-300 text-xs">
             {error}
           </div>
         )}
@@ -166,40 +172,56 @@ export const CreatorAuditModal: React.FC<CreatorAuditModalProps> = ({ onClose })
         {data && data.analytics && (
           <div className="space-y-6">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <div className="glass-card p-3 text-center">
-                <span className="block text-[11px] text-slate-400 font-medium">Total Attempts</span>
-                <span className="text-2xl font-bold font-mono text-white">{data.analytics.totalAttempts}</span>
+              <div className="glass-card p-4 text-center border-white/10 shadow-sm">
+                <span className="block text-[11px] text-slate-400 font-bold uppercase tracking-wider">
+                  Total Attempts
+                </span>
+                <span className="text-2xl sm:text-3xl font-extrabold font-mono text-white mt-1 block">
+                  {data.analytics.totalAttempts}
+                </span>
               </div>
-              <div className="glass-card p-3 text-center">
-                <span className="block text-[11px] text-emerald-400 font-medium">Completed</span>
-                <span className="text-2xl font-bold font-mono text-emerald-400">{data.analytics.submittedCount}</span>
+              <div className="glass-card p-4 text-center border-white/10 shadow-sm">
+                <span className="block text-[11px] text-emerald-400 font-bold uppercase tracking-wider">
+                  Completed
+                </span>
+                <span className="text-2xl sm:text-3xl font-extrabold font-mono text-emerald-400 mt-1 block">
+                  {data.analytics.submittedCount}
+                </span>
               </div>
-              <div className="glass-card p-3 text-center">
-                <span className="block text-[11px] text-amber-400 font-medium">In Progress</span>
-                <span className="text-2xl font-bold font-mono text-amber-400">{data.analytics.inProgressCount}</span>
+              <div className="glass-card p-4 text-center border-white/10 shadow-sm">
+                <span className="block text-[11px] text-amber-400 font-bold uppercase tracking-wider">
+                  In Progress
+                </span>
+                <span className="text-2xl sm:text-3xl font-extrabold font-mono text-amber-400 mt-1 block">
+                  {data.analytics.inProgressCount}
+                </span>
               </div>
-              <div className="glass-card p-3 text-center">
-                <span className="block text-[11px] text-sky-400 font-medium">Pass Rate</span>
-                <span className="text-2xl font-bold font-mono text-sky-400">{data.analytics.passRate}%</span>
+              <div className="glass-card p-4 text-center border-white/10 shadow-sm">
+                <span className="block text-[11px] text-sky-400 font-bold uppercase tracking-wider">
+                  Pass Rate
+                </span>
+                <span className="text-2xl sm:text-3xl font-extrabold font-mono text-sky-400 mt-1 block">
+                  {data.analytics.passRate}%
+                </span>
               </div>
             </div>
 
             {/* Filter and CSV Export Bar */}
             <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-              <div className="relative w-full sm:w-64">
-                <Search size={14} className="absolute left-3 top-3 text-slate-400" />
+              <div className="relative w-full sm:w-72">
+                <Search size={15} className="absolute left-3.5 top-3 text-slate-400" />
                 <input
                   type="text"
                   value={filterText}
                   onChange={(e) => setFilterText(e.target.value)}
-                  placeholder="Filter name, email, IP..."
-                  className="input-field pl-8 py-2 text-xs"
+                  placeholder="Filter by name, email, IP..."
+                  className="input-field pl-9.5 py-2 text-xs"
                 />
               </div>
 
               <button
                 onClick={handleExportCsv}
-                className="btn-secondary text-xs px-3.5 py-2 w-full sm:w-auto"
+                className="btn-secondary text-xs px-4 py-2 w-full sm:w-auto font-medium"
               >
                 <Download size={14} />
                 <span>Export CSV Audit Log</span>
@@ -207,31 +229,31 @@ export const CreatorAuditModal: React.FC<CreatorAuditModalProps> = ({ onClose })
             </div>
 
             {/* Candidates Table */}
-            <div className="glass-card overflow-x-auto p-0 border-white/10">
+            <div className="glass-card overflow-x-auto p-0 border-white/10 rounded-2xl shadow-xl">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-900/80 text-slate-400 uppercase font-mono text-[10px] tracking-wider border-b border-white/10">
+                <thead className="bg-slate-900/90 text-slate-400 uppercase font-mono text-[10px] tracking-wider border-b border-white/10">
                   <tr>
-                    <th className="px-4 py-3">Candidate</th>
-                    <th className="px-4 py-3">Recorded Client IP</th>
-                    <th className="px-4 py-3">Start / Submit</th>
-                    <th className="px-4 py-3">Score</th>
-                    <th className="px-4 py-3">Status</th>
+                    <th className="px-4 py-3.5 font-bold">Candidate</th>
+                    <th className="px-4 py-3.5 font-bold">Recorded Client IP</th>
+                    <th className="px-4 py-3.5 font-bold">Start / Submit</th>
+                    <th className="px-4 py-3.5 font-bold">Score</th>
+                    <th className="px-4 py-3.5 font-bold">Status</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5">
                   {filteredSubmissions.length > 0 ? (
                     filteredSubmissions.map((sub) => (
-                      <tr key={sub.attemptId} className="hover:bg-white/5 transition-colors">
-                        <td className="px-4 py-3">
-                          <div className="font-semibold text-white">{sub.candidateName}</div>
+                      <tr key={sub.attemptId} className="hover:bg-white/[0.03] transition-colors">
+                        <td className="px-4 py-3.5">
+                          <div className="font-bold text-white">{sub.candidateName}</div>
                           <div className="text-slate-400 font-mono text-[11px]">{sub.candidateEmail}</div>
                         </td>
-                        <td className="px-4 py-3">
-                          <span className="font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 px-2 py-0.5 rounded">
+                        <td className="px-4 py-3.5">
+                          <span className="font-mono text-emerald-400 font-bold bg-emerald-950/40 border border-emerald-500/25 px-2 py-0.5 rounded text-[11px]">
                             {sub.clientIp}
                           </span>
                         </td>
-                        <td className="px-4 py-3 font-mono text-[11px] text-slate-300">
+                        <td className="px-4 py-3.5 font-mono text-[11px] text-slate-300">
                           <div>Start: {new Date(sub.startTime).toLocaleTimeString()}</div>
                           {sub.submitTime && (
                             <div className="text-slate-400">
@@ -239,17 +261,19 @@ export const CreatorAuditModal: React.FC<CreatorAuditModalProps> = ({ onClose })
                             </div>
                           )}
                         </td>
-                        <td className="px-4 py-3 font-mono">
+                        <td className="px-4 py-3.5 font-mono">
                           {sub.status === 'IN_PROGRESS' ? (
-                            <span className="text-amber-400 text-[11px]">Evaluating...</span>
+                            <span className="text-amber-400 text-[11px] font-semibold">Evaluating...</span>
                           ) : (
                             <div>
                               <span className="font-bold text-white">
                                 {sub.score} / {sub.maxScore}
                               </span>{' '}
                               <span
-                                className={`text-[10px] px-1.5 py-0.2 rounded font-bold ${
-                                  sub.isPassed ? 'text-emerald-400 bg-emerald-950/50' : 'text-rose-400 bg-rose-950/50'
+                                className={`text-[10px] px-1.5 py-0.5 rounded font-bold ${
+                                  sub.isPassed
+                                    ? 'text-emerald-400 bg-emerald-950/50'
+                                    : 'text-rose-400 bg-rose-950/50'
                                 }`}
                               >
                                 {sub.percentage}%
@@ -257,9 +281,9 @@ export const CreatorAuditModal: React.FC<CreatorAuditModalProps> = ({ onClose })
                             </div>
                           )}
                         </td>
-                        <td className="px-4 py-3">
+                        <td className="px-4 py-3.5">
                           <span
-                            className={`font-semibold px-2 py-0.5 rounded text-[10px] uppercase tracking-wider ${
+                            className={`font-bold px-2.5 py-1 rounded-full text-[10px] uppercase tracking-wider ${
                               sub.status === 'SUBMITTED'
                                 ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
                                 : sub.status === 'TIMED_OUT'
@@ -274,8 +298,8 @@ export const CreatorAuditModal: React.FC<CreatorAuditModalProps> = ({ onClose })
                     ))
                   ) : (
                     <tr>
-                      <td colSpan={5} className="px-4 py-8 text-center text-slate-400">
-                        No candidate attempts found matching the criteria.
+                      <td colSpan={5} className="px-4 py-10 text-center text-slate-400">
+                        No candidate attempts found matching the search criteria.
                       </td>
                     </tr>
                   )}
